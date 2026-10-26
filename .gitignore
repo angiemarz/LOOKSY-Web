@@ -1,0 +1,20 @@
+node_modules/
+dist/
+dev-dist/
+coverage/
+*.local
+.env
+.env.*
+.wrangler/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# Personal data must never reach the repository
+*.looksybackup
+LOOKSY-respaldo-*.json
+personal/
+photos/
+backups/
+test-results/
+playwright-report/
