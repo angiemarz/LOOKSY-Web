@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+
+@theme inline {
+  --color-bg: var(--lx-bg);
+  --color-surface: var(--lx-surface);
+  --color-cream: var(--lx-cream);
+  --color-beige: var(--lx-beige);
+  --color-rose: var(--lx-rose);
+  --color-rose-soft: var(--lx-rose-soft);
+  --color-accent: var(--lx-accent);
+  --color-on-accent: var(--lx-on-accent);
+  --color-ink: var(--lx-ink);
+  --color-muted: var(--lx-muted);
+  --color-line: var(--lx-line);
+  --color-danger: var(--lx-danger);
+  --font-display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --lx-bg: #FAF8F5;
+  --lx-surface: #FFFFFF;
+  --lx-cream: #F5EFE8;
+  --lx-beige: #E8DDD0;
+  --lx-rose: #D8A7B1;
+  --lx-rose-soft: #F3E2E5;
+  --lx-accent: #A35E6E;
+  --lx-on-accent: #FFFFFF;
+  --lx-ink: #292522;
+  --lx-muted: #6B5F57;
+  --lx-line: #E6DCD2;
+  --lx-danger: #B3261E;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lx-bg: #1A1716;
+    --lx-surface: #262120;
+    --lx-cream: #2B2523;
+    --lx-beige: #3A312D;
+    --lx-rose: #B98390;
+    --lx-rose-soft: #3D2D31;
+    --lx-accent: #E3B5BF;
+    --lx-on-accent: #292522;
+    --lx-ink: #F5EFE8;
+    --lx-muted: #C2B6AB;
+    --lx-line: #3F3632;
+    --lx-danger: #F2B8B5;
+  }
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input, textarea, select { font-size: 16px; } /* avoids iOS zoom on focus */
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--lx-accent); outline-offset: 2px; }
+}
+
+@utility pt-safe { padding-top: env(safe-area-inset-top); }
+@utility pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+@utility card { @apply bg-surface rounded-3xl shadow-[0_6px_24px_rgba(41,37,34,0.06)]; }
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--lx-beige) 25%, var(--lx-cream) 50%, var(--lx-beige) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

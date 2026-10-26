@@ -1,0 +1,12 @@
+// Cloudflare Workers deployment (static assets only, free plan).
+// The build output in dist/ is served as-is; unknown routes fall back to
+// index.html so deep links like /armario work. No Worker code runs.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "looksy-web",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
