@@ -3,7 +3,9 @@
 Leyenda: **Implementado** · **Probado** (unitarias/e2e en este entorno o CI) · **Publicado** (Cloudflare Pages) ·
 **Verificado en dispositivo** (iPhone/Android/Windows reales, por la usuaria).
 
-_Última actualización: 2026-10-26 — sesión 1 (inicio de la versión web)._
+_Última actualización: 2026-10-26 — sesión 1 (inicio de la versión web, publicada)._
+
+**URL pública:** https://looksy-web.ibmarzmichelle.workers.dev/ (Cloudflare Workers, assets estáticos, se publica desde `main`).
 
 ## Estado de verificación
 
@@ -13,9 +15,10 @@ _Última actualización: 2026-10-26 — sesión 1 (inicio de la versión web)._
 | Pruebas unitarias (Vitest) | ✅ 47/47 — parser, motor de outfits, armonía, Pinterest, collage, color, recorte de fondo, recreación, respaldos |
 | Compilación de producción (Vite + PWA) | ✅ `dist/` con service worker y manifest |
 | E2E (Playwright, Chromium como iPhone 13 y escritorio) | ✅ 6/6 — armario → estilista → collage → look → Pinterest → respaldo; manifest/SW; enlaces directos |
-| CI en GitHub Actions | ⏳ pendiente: el repositorio `LOOKSY-Web` aún no existe en GitHub |
-| Publicación en Cloudflare Pages | ⏳ pendiente: requiere conectar el repo en el panel de Cloudflare (`docs/DEPLOY_CLOUDFLARE.md`) |
-| Safari iOS real / Android real / Windows real | ⏳ no probado en dispositivos físicos |
+| CI en GitHub Actions | ✅ verde en el PR #1 (typecheck, 47 unitarias, build, e2e) |
+| Publicación en Cloudflare | ✅ desplegada con Workers (`wrangler.jsonc`) desde `main` (merge del PR #1, `5edb9f7`) |
+| iPhone real | 🟡 la usuaria confirmó que la URL abre en su teléfono; falta probar instalación y flujos completos |
+| Android real / Windows real | ⏳ no probado |
 
 > Las pruebas e2e usan Chromium emulando un iPhone; **no** sustituyen una prueba en Safari de un iPhone real
 > (gestos táctiles, instalación, cámara, HEIC).
@@ -43,9 +46,9 @@ _Última actualización: 2026-10-26 — sesión 1 (inicio de la versión web)._
 
 ## Pendientes
 
-- [ ] Crear el repositorio `angiemarz/LOOKSY-Web`, dar acceso a la app de GitHub de Claude y hacer push.
-- [ ] Primer run verde de CI en GitHub Actions.
-- [ ] Conectar Cloudflare Pages y verificar la URL pública.
+- [x] Repositorio `angiemarz/LOOKSY-Web` creado y PR #1 fusionado.
+- [x] CI verde en GitHub Actions.
+- [x] Publicación en Cloudflare Workers.
 - [ ] Probar en iPhone real (Safari + instalada), Android (Chrome) y Windows (Edge/Chrome).
 - [ ] Verificar la compatibilidad real de respaldos iOS ↔ web con un archivo exportado desde cada app.
 - [ ] Revisión de accesibilidad con VoiceOver/TalkBack.
@@ -53,4 +56,13 @@ _Última actualización: 2026-10-26 — sesión 1 (inicio de la versión web)._
 
 ## Historial de commits
 
-Ver `git log` (repositorio local en `/home/user/LOOKSY-Web` hasta que exista el remoto).
+| Commit | Descripción |
+|---|---|
+| `ad18195` | chore: initialize repository |
+| `cebbab8` | feat: PWA MVP |
+| `cef7402` | ci: Cloudflare Workers config |
+| `5edb9f7` | Merge PR #1 |
+
+## Siguiente paso
+Instalar en el iPhone (Safari → Compartir → Agregar a pantalla de inicio), agregar prendas reales y reportar
+problemas de cámara, HEIC o gestos.
