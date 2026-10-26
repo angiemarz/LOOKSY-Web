@@ -1,7 +1,7 @@
 # Publicar LOOKSY Web gratis en Cloudflare Pages
 
 LOOKSY es un sitio estático (HTML, JS, CSS e íconos). No necesita servidor, base de datos ni claves de API:
-cada persona guarda sus datos en su propio navegador. Cloudflare Pages lo publica gratis con HTTPS
+cada persona guarda sus datos en su propio navegador. Cloudflare (Workers o Pages) lo publica gratis con HTTPS
 (requisito para instalar una PWA) y lo actualiza solo cuando cambia la rama `main`.
 
 > Los nombres de los menús de Cloudflare cambian con el tiempo. Si algo no coincide, busca la opción
@@ -14,21 +14,36 @@ cada persona guarda sus datos en su propio navegador. Cloudflare Pages lo public
 
 ## 2. Conectar el repositorio (una sola vez)
 
-1. Entra a https://dash.cloudflare.com → **Workers & Pages** → **Create** → pestaña **Pages** →
-   **Connect to Git**.
-2. Autoriza a Cloudflare en GitHub **solo** para el repositorio `LOOKSY-Web`.
-3. Configuración de compilación:
+Cloudflare ofrece dos caminos gratuitos; el repositorio funciona con ambos.
+
+### Opción A — Workers (la que muestra hoy el panel por defecto)
+
+1. https://dash.cloudflare.com → **Workers & Pages** → **Create** → **Import a repository** → elige
+   `angiemarz/LOOKSY-Web`.
+2. En **Set up your application**:
 
    | Campo | Valor |
    |---|---|
-   | Production branch | `main` |
-   | Framework preset | `None` (o `React (Vite)`) |
+   | Project name | `looksy-web` (debe coincidir con `name` en `wrangler.jsonc`) |
    | Build command | `npm run build` |
-   | Build output directory | `dist` |
-   | Root directory | *(vacío)* |
-   | Variable de entorno | `NODE_VERSION` = `22` |
+   | Deploy command | `npx wrangler deploy` |
+   | Preview command | `npx wrangler versions upload` (o el que sugiera el panel) |
+   | Enable Preview builds | Activado (vistas previas de los PR) |
+   | Protect with Cloudflare Access | Desactivado |
 
-4. **Save and Deploy**. Al terminar tendrás una dirección como `https://looksy-web.pages.dev`.
+3. En **Advanced settings → Build variables** añade `NODE_VERSION` = `22` si el panel lo permite.
+4. **Deploy**. La dirección será como `https://looksy-web.<tu-subdominio>.workers.dev`.
+
+`wrangler.jsonc` publica solo archivos estáticos (`dist/`), sin código de servidor, y responde `index.html` en
+cualquier ruta (`not_found_handling: single-page-application`). `public/_headers` también se aplica.
+
+### Opción B — Pages
+
+**Workers & Pages** → **Create** → pestaña **Pages** → **Connect to Git**. Build command `npm run build`,
+output directory `dist`, variable `NODE_VERSION` = `22`, production branch `main`.
+
+> Importante: la rama de producción es `main`. Aprueba y fusiona el Pull Request antes del primer despliegue;
+> si `main` solo tiene el README, no habrá nada que publicar.
 
 ## 3. Cómo se actualiza
 

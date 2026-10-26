@@ -16,7 +16,7 @@ La versión nativa SwiftUI vive en **otro repositorio** (`angiemarz/LOOKSY-iOS`)
 ## 2. Restricciones (no negociables)
 
 - Costo cero: sin APIs de pago ni obligatorias, sin backend, sin cuentas, sin servicios de IA remotos.
-- Hosting gratuito en **Cloudflare Pages** con su integración Git (publica `main`). Sin Functions/KV/D1/R2.
+- Hosting gratuito en **Cloudflare** (Workers con assets estáticos vía `wrangler.jsonc`, o Pages) con integración Git (publica `main`). Sin código de servidor, KV, D1 ni R2.
 - Sin scraping ni endpoints privados de Pinterest; solo URLs públicas de búsqueda. Nunca inventar pines,
   resultados, análisis ni porcentajes. Si solo hay una URL, no afirmar que se analizó la imagen.
 - Datos solo en el dispositivo (IndexedDB). Las fotos nunca se suben. Nada de datos personales en logs.
